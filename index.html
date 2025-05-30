@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>VR by OpiumMesh 🔥</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    /* Стартовый экран */
+    #start-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+    }
+
+    #model-selection-wrapper {
+      text-align: center;
+    }
+
+    #select-title {
+      color: white;
+      font-size: 36px;
+      margin-bottom: 30px;
+      font-weight: 400;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    .model-select {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .model-option {
+      width: 40vw;
+      height: 60vh;
+      min-width: 600px;
+      min-height: 600px;
+      max-width: 800px;
+      max-height: 800px;
+      background: #222;
+      border-radius: 15px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .model-option:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+
+    .model-option img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .model-option:hover img {
+      transform: scale(1.05);
+    }
+
+    .model-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: white;
+      padding: 20px;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    /* Кнопка закрытия */
+    #close-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      font-size: 60px;
+      font-weight: bold;
+      line-height: 80px;
+      text-align: center;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 300;
+      display: none;
+      transition: background 0.3s;
+    }
+
+    #close-button:hover {
+      background: #111;
+    }
+
+    /* Статус загрузки */
+    #status {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      z-index: 100;
+      display: none;
+    }
+
+    #progress-container {
+      width: 100%;
+      height: 5px;
+      background: #444;
+      margin-top: 10px;
+      border-radius: 3px;
+    }
+
+    #progress-bar {
+      height: 100%;
+      background: #4CAF50;
+      width: 0%;
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+
+    .error {
+      background: rgba(200, 50, 50, 0.7) !important;
+    }
+
+    #footer-text {
+  position: fixed;
+  bottom: 30px;       /* отступ от низа */
+  left: 50%;          /* сдвигаем влево на 50% ширины окна */
+  transform: translateX(-50%);  /* сдвигаем обратно влево на 50% ширины самого блока — для точного*/
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  user-select: none;
+  pointer-events: auto;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#footer-text a {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+#footer-text a img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* делает иконку белой для темного фона */
+  transition: filter 0.3s ease;
+}
+
+#footer-text a:hover img {
+  filter: brightness(0) invert(0.6); /* чуть светлее при наведении */
+}
+
+  </style>
+</head>
+<body>
+  <!-- Стартовый экран -->
+  <div id="start-screen">
+    <div id="model-selection-wrapper">
+      <h1 id="select-title">ВЫБОР МОДЕЛИ</h1>
+      <div class="model-select">
+        <div class="model-option" data-model="models/105_Baked.glb">
+          <img src="preview/105_prev.jpg" alt="Model 1">
+          <div class="model-title">STUDIO</div>
+        </div>
+        <div class="model-option" data-model="models/108_Baked.glb">
+          <img src="preview/108_prev.jpg" alt="Model 2">
+          <div class="model-title">1 BEDROOM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Статус загрузки -->
+  <div id="status">
+    <div id="message">Начинаем загрузку модели...</div>
+    <div id="progress-container"><div id="progress-bar"></div></div>
+  </div>
+
+  <!-- Кнопка "закрыть модель" -->
+  <div id="close-button" title="Закрыть">×</div>
+
+  <div id="footer-text">
+  Powered by OpiumMesh | Написать мне: 
+  <a href="https://t.me/dashmtl" target="_blank" rel="noopener" id="tg-link" title="Telegram">
+    <img src="icons/telegram-white-icon.png" alt="Telegram" />
+  </a>
+</div>
+
+
+  <!-- Three.js и загрузчики -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/DRACOLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/RGBELoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
