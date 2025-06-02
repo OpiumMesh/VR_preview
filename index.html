@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>AR by OpiumMesh 🔥</title>
+  <title>VR by OpiumMesh 🔥</title>
   <style>
     body {
       margin: 0;
@@ -44,23 +44,32 @@
       gap: 30px;
       justify-content: center;
       flex-wrap: wrap;
+      /*aspect-ratio: 1;*/
     }
 
     .model-option {
       width: 40vw;
-      height: 60vh;
-      min-width: 600px;
-      min-height: 600px;
+      height: auto; /*60vh;*/
+      /*min-width: 800px;
+      min-height: 800px;*/
       max-width: 800px;
-      max-height: 800px;
+      /*max-height: 800px;*/
+      aspect-ratio: 1 / 1;
       background: #222;
       border-radius: 15px;
       overflow: hidden;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      position: relative;
+      position: relative; /* добавь */
     }
+
+    @media (max-width: 900px) {
+  .model-option {
+    width: 80vw;    /* на мобильных ширина побольше по отношению к экрану */
+    max-width: 400px;
+  }
+}
 
     .model-option:hover {
       transform: scale(1.03);
@@ -79,7 +88,7 @@
     }*/
 
 .preview-wrapper {
-  position: relative; /* важно, чтобы внутри позиционировать corner-icon */
+  position: static;       /*position: relative; /* важно, чтобы внутри позиционировать corner-icon */
   display: inline-block; /* чтобы размеры соответствовали картинке */
 }
 
@@ -92,14 +101,22 @@
 
 .corner-icon {
   position: absolute;
-  top: 0px;
-  left: -50px;
-  width: 275px !important;
-  height: 275px !important;
+  top: 0;
+  left: -5%;
+  width: 35%;
+  height: auto;
   pointer-events: none;
   user-select: none;
   z-index: 10;
-  object-fit: contain; /* чтобы иконка не деформировалась */
+  object-fit: contain;
+}
+
+@media (max-width: 600px) {
+  .corner-icon {
+    left: -20%;
+    width: 40%;
+    max-width: 100px;
+  }
 }
 
     .model-title {
@@ -307,22 +324,20 @@ kbd {
     <div id="model-selection-wrapper">
       <h1 id="select-title">ВЫБОР МОДЕЛИ</h1>
       <div class="model-select">
-<div class="model-option" data-model="models/105_Baked.glb">
-  <div class="preview-wrapper">
-    <img src="preview/105_prev.jpg" alt="Model 1" class="main-preview">
-    <img src="preview/105_plan.png" alt="Icon" class="corner-icon" />
-  </div>
-  <div class="model-title">STUDIO</div>
-  <button class="ar-launch-button" onclick="openAR('models/105_Baked.glb')">📱 Смотреть в AR</button>
-
-</div>
-       <div class="model-option" data-model="models/108_Baked.glb">
-  <div class="preview-wrapper">
-    <img src="preview/108_prev.jpg" alt="Model 2" class="main-preview">
-    <img src="preview/108_plan.png" alt="Icon" class="corner-icon" />
-  </div>
-  <div class="model-title">1 BEDROOM</div>
-</div>
+        <div class="model-option" data-model="models/105_Baked.glb">
+          <div class="preview-wrapper">
+            <img src="preview/105_prev.jpg" alt="Model 1" class="main-preview">
+            <img src="preview/105_plan.png" alt="Icon" class="corner-icon" />
+          </div>
+          <div class="model-title">STUDIO</div>
+        </div>
+              <div class="model-option" data-model="models/108_Baked.glb">
+          <div class="preview-wrapper">
+            <img src="preview/108_prev.jpg" alt="Model 2" class="main-preview">
+            <img src="preview/108_plan.png" alt="Icon" class="corner-icon" />
+          </div>
+          <div class="model-title">1 BEDROOM</div>
+        </div>
       </div>
     </div>
   </div>

@@ -109,15 +109,19 @@ function updateStatus(text, progress = 0, isError = false) {
     if (isError) {
         statusEl.classList.add('error');
         spinner.style.display = 'none';
-    } else if (progress >= 100) {
-        setTimeout(() => {
-            statusEl.style.opacity = '0';
-            spinner.style.display = 'none';
-            progressTop.style.width = '0%';
-            setTimeout(() => statusEl.style.display = 'none', 500);
-        }, 1500);
+    } else {
+        statusEl.classList.remove('error');
+        if (progress >= 100) {
+            setTimeout(() => {
+                statusEl.style.opacity = '0';
+                spinner.style.display = 'none';
+                progressTop.style.width = '0%';
+                setTimeout(() => statusEl.style.display = 'none', 500);
+            }, 500);
+        }
     }
 }
+
 
 // Загрузка модели
 function loadModel(modelPath) {
