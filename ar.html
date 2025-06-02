@@ -38,7 +38,7 @@
 
 <model-viewer
   id="viewer"
-  src="https://raw.githubusercontent.com/OpiumMesh/VR_preview/main/models/105_Baked.glb"
+    src=""
   alt="3D Model"
   ar
   ar-modes="scene-viewer"
@@ -64,6 +64,14 @@
       arButton.style.display = viewer.canActivateAR ? 'block' : 'none';
     }
   });
+
+  // Подставляем путь из URL
+const urlParams = new URLSearchParams(window.location.search);
+const modelPath = urlParams.get('model');
+
+if (modelPath) {
+  viewer.src = modelPath;
+}
 </script>
 
 </body>

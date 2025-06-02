@@ -329,6 +329,8 @@ kbd {
     <img src="preview/105_plan.png" alt="Icon" class="corner-icon" />
   </div>
   <div class="model-title">STUDIO</div>
+  <button class="ar-launch-button" onclick="openAR('models/105_Baked.glb')">📱 Смотреть в AR</button>
+
 </div>
        <div class="model-option" data-model="models/108_Baked.glb">
   <div class="preview-wrapper">
@@ -378,6 +380,13 @@ kbd {
       <img src="icons/telegram-white-icon.png" alt="Telegram" />
     </a>
   </div>
+
+<script>
+  function openAR(modelPath) {
+    const encodedPath = encodeURIComponent(modelPath);
+    window.location.href = `ar.html?model=${encodedPath}`;
+  }
+</script>
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
