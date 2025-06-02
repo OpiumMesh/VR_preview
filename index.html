@@ -14,7 +14,6 @@
       display: block;
     }
 
-    /* Стартовый экран */
     #start-screen {
       position: fixed;
       top: 0;
@@ -91,7 +90,6 @@
       text-align: center;
     }
 
-    /* Кнопка закрытия */
     #close-button {
       position: fixed;
       top: 20px;
@@ -115,32 +113,64 @@
       background: #111;
     }
 
-    /* Статус загрузки */
-    #status {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      padding: 15px;
-      border-radius: 5px;
-      z-index: 100;
+    #progress-bar-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 10px;
+      width: 0%;
+      background: #4CAF50;
+      z-index: 300;
+      transition: width 0.3s ease;
+    }
+
+    #loading-spinner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      margin: -30px 0 0 -30px;
+      border: 6px solid rgba(255, 255, 255, 0.2);
+      border-top-color: #4CAF50;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      z-index: 300;
       display: none;
     }
 
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #status {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      z-index: 301;
+      font-size: 14px;
+      display: none;
+      pointer-events: none;
+    }
+
     #progress-container {
+      position: absolute;
+      top: 20px;
       width: 100%;
-      height: 5px;
-      background: #444;
-      margin-top: 10px;
-      border-radius: 3px;
+      text-align: center;
+      z-index: 1;
     }
 
     #progress-bar {
-      height: 100%;
-      background: #4CAF50;
+      height: 6px;
+      background: #4caf50;
       width: 0%;
-      border-radius: 3px;
+      margin: 0 auto;
       transition: width 0.3s;
     }
 
@@ -149,44 +179,107 @@
     }
 
     #footer-text {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      user-select: none;
+      pointer-events: auto;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    #footer-text a {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    #footer-text a img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      transition: filter 0.3s ease;
+    }
+
+    #footer-text a:hover img {
+      filter: brightness(0) invert(0.6);
+    }
+
+    #model-details {
+      position: fixed;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      color: white;
+      font-family: sans-serif;
+      font-size: 14px;
+      background: rgba(30, 30, 30, 0.9);
+      padding: 12px 16px;
+      border-radius: 8px;
+      display: none;
+      max-width: 240px;
+      line-height: 1.4em;
+      z-index: 999;
+    }
+
+    #model-details .detail-item strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    #hint-panel {
   position: fixed;
-  bottom: 30px;       /* отступ от низа */
-  left: 50%;          /* сдвигаем влево на 50% ширины окна */
-  transform: translateX(-50%);  /* сдвигаем обратно влево на 50% ширины самого блока — для точного*/
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 14px;
-  font-family: Arial, sans-serif;
-  user-select: none;
-  pointer-events: auto;
-  z-index: 500;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(30, 30, 30, 0.9);
+  color: #fff;
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  max-width: 220px;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.hint-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 6px;
+  font-weight: bold;
+  margin-bottom: 6px;
 }
 
-#footer-text a {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
+#hint-toggle {
+  background: none;
+  border: none;
+  color: #fff;
   cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  line-height: 1;
 }
 
-#footer-text a img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: brightness(0) invert(1); /* делает иконку белой для темного фона */
-  transition: filter 0.3s ease;
+kbd {
+  background: #444;
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-family: monospace;
 }
 
-#footer-text a:hover img {
-  filter: brightness(0) invert(0.6); /* чуть светлее при наведении */
-}
 
   </style>
 </head>
 <body>
-  <!-- Стартовый экран -->
+
   <div id="start-screen">
     <div id="model-selection-wrapper">
       <h1 id="select-title">ВЫБОР МОДЕЛИ</h1>
@@ -203,24 +296,44 @@
     </div>
   </div>
 
-  <!-- Статус загрузки -->
   <div id="status">
     <div id="message">Начинаем загрузку модели...</div>
     <div id="progress-container"><div id="progress-bar"></div></div>
   </div>
 
-  <!-- Кнопка "закрыть модель" -->
+  <div id="progress-bar-top"></div>
+  <div id="loading-spinner"></div>
+
   <div id="close-button" title="Закрыть">×</div>
 
-  <div id="footer-text">
-  Powered by OpiumMesh | Написать мне: 
-  <a href="https://t.me/dashmtl" target="_blank" rel="noopener" id="tg-link" title="Telegram">
-    <img src="icons/telegram-white-icon.png" alt="Telegram" />
-  </a>
+  <!-- ✅ Новый блок с инфой о модели -->
+  <div id="model-details">
+    <div class="detail-item">
+      <strong>Optimized for AR</strong><br>
+      Polys: 4.9m → 378k<br>
+      Size: 1.42GB → 28MB<br>
+      Used 1k textures
+    </div>
+  </div>
+
+  <div id="hint-panel">
+  <div class="hint-header">
+    Управление
+    <button id="hint-toggle">×</button>
+  </div>
+  <div class="hint-content">
+    ↻ <kbd>ЛКМ</kbd> зажать и двигать<br>
+    🔍 <kbd>СКМ</kbd> прокрутить
+  </div>
 </div>
 
+  <div id="footer-text">
+    Powered by OpiumMesh | Написать мне:
+    <a href="https://t.me/OpiumDetka" target="_blank" rel="noopener" id="tg-link" title="Telegram">
+      <img src="icons/telegram-white-icon.png" alt="Telegram" />
+    </a>
+  </div>
 
-  <!-- Three.js и загрузчики -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/DRACOLoader.js"></script>
