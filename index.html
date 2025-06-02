@@ -299,6 +299,21 @@ kbd {
   font-family: monospace;
 }
 
+.ar-launch-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background: #28a745;
+  color: white;
+  cursor: pointer;
+  margin-top: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.ar-launch-button:hover {
+  background: #218838;
+}
+
 
   </style>
 </head>
@@ -363,6 +378,10 @@ kbd {
       <img src="icons/telegram-white-icon.png" alt="Telegram" />
     </a>
   </div>
+
+  <a id="ar-button" href="intent://arvr.google.com/scene-viewer/1.0?file=https://raw.githubusercontent.com/OpiumMesh/VR_preview/main/models/105_Baked.glb&mode=ar_preferred#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url=https://example.com/fallback.html;end;">
+  <button class="ar-launch-button">📱 Смотреть в AR</button>
+</a>
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
