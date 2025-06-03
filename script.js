@@ -185,9 +185,8 @@ function loadModel(modelPath) {
                 const progress = 10 + percent * 0.8; // от 10% до 90%
                 updateStatus(`Загружается: ${loadedMB} MB / ${totalMB} MB (${Math.round(progress)}%)`, progress);
             } else {
-                const totalMB = (xhr.total / 1024 / 1024).toFixed(1);
                 const fakeProgress = Math.min(10 + xhr.loaded * 0.00005, 90); // если размер неизвестен
-                updateStatus(`Загрузка... (${loadedMB} MB / ${totalMB} MB)`, fakeProgress);
+                updateStatus(`Загрузка... (${loadedMB} MB)`, fakeProgress);
             }
         },
         (error) => {
