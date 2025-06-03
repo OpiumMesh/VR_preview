@@ -160,7 +160,7 @@
       left: 0;
       height: 10px;
       width: 0%;
-      background: #4CAF50;
+      background: pink; /*#4caf50*/
       z-index: 300;
       transition: width 0.3s ease;
     }
@@ -173,7 +173,7 @@
       height: 60px;
       margin: -30px 0 0 -30px;
       border: 6px solid rgba(255, 255, 255, 0.2);
-      border-top-color: #4CAF50;
+      border-top-color: pink; /*#4caf50*/
       border-radius: 50%;
       animation: spin 1s linear infinite;
       z-index: 300;
@@ -209,7 +209,7 @@
 
     #progress-bar {
       height: 6px;
-      background: #4caf50;
+      background: pink; /*#4caf50*/
       width: 0%;
       margin: 0 auto;
       transition: width 0.3s;
@@ -251,8 +251,14 @@
     }
 
     #footer-text a:hover img {
-      filter: brightness(0) invert(0.6);
+      /*filter: brightness(0) invert(0.6);*/
+ filter: invert(85%) sepia(30%) saturate(500%) hue-rotate(280deg) brightness(450%) contrast(90%);
     }
+
+    .highlight-nick {
+  color: pink;
+  font-weight: bold; /* опционально */
+}
 
     #model-details {
       position: fixed;
@@ -373,12 +379,12 @@ kbd {
   </div>
 </div>
 
-  <div id="footer-text">
-    Powered by OpiumMesh | Написать мне:
-    <a href="https://t.me/OpiumDetka" target="_blank" rel="noopener" id="tg-link" title="Telegram">
-      <img src="icons/telegram-white-icon.png" alt="Telegram" />
-    </a>
-  </div>
+<div id="footer-text">
+  Powered by <span class="highlight-nick">OpiumMesh</span> | Написать мне:
+  <a href="https://t.me/OpiumDetka" target="_blank" rel="noopener" id="tg-link" title="Telegram">
+    <img src="icons/telegram-white-icon.png" alt="Telegram" />
+  </a>
+</div>
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
