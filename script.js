@@ -131,7 +131,7 @@ function loadModel(modelPath) {
 
     // Если модель уже загружена — использовать из кэша
     if (modelCache[modelPath]) {
-        updateStatus('Загрузка из кэша... (90%)', 90);
+        updateStatus('Загрузка из кэша...', 90);
 
         // Очистить сцену
         while (scene.children.length > 1) {
@@ -144,17 +144,17 @@ function loadModel(modelPath) {
         // Центровка, позиционирование и интерфейс, как обычно:
         setupCameraAndInfo(modelPath, cachedScene);
 
-        updateStatus('Готово! (100%)', 100);
+        updateStatus('Готово', 100);
         closeButton.style.display = 'block';
         return;
     }
 
-    updateStatus('Загрузка модели... (10%)', 10);
+    updateStatus('Загрузка модели...', 10);
 
     loader.load(
         modelPath,
         (gltf) => {
-            updateStatus('Обработка модели... (90%)', 90);
+            updateStatus('Обработка модели...', 90);
 
             while (scene.children.length > 1) {
                 scene.remove(scene.children[1]);
@@ -167,7 +167,7 @@ function loadModel(modelPath) {
 
             setupCameraAndInfo(modelPath, originalScene);
 
-            updateStatus('Готово! (100%)', 100);
+            updateStatus('Готово', 100);
             closeButton.style.display = 'block';
         },
         /*(xhr) => {
@@ -186,7 +186,7 @@ function loadModel(modelPath) {
                 updateStatus(`Загружается: ${loadedMB} MB / ${totalMB} MB (${Math.round(progress)}%)`, progress);
             } else {
                 const fakeProgress = Math.min(10 + xhr.loaded * 0.00005, 90); // если размер неизвестен
-                updateStatus(`Загрузка... (${loadedMB} MB)`, fakeProgress);
+                updateStatus(`Загрузка... (${loadedMB} MB / ${totalMB} MB)`, fakeProgress);
             }
         },
         (error) => {
