@@ -177,21 +177,16 @@ function loadModel(modelPath) {
             updateStatus(`Загружается: ${loadedMB} MB (${Math.round(progress)}%)`, progress);
         },*/
         (xhr) => {
-            if (xhr.lengthComputable && xhr.total > 0) {
-                const percent = (xhr.loaded / xhr.total) * 100;
-                const progress = 10 + percent * 0.8;
-                const loadedMB = (xhr.loaded / 1024 / 1024).toFixed(1);
-                const totalMB = (xhr.total / 1024 / 1024).toFixed(1);
+            const loadedMB = (xhr.loaded / 1024 / 1024).toFixed(1);
 
-                updateStatus(`Загружается: ${loadedMB} MB из ${totalMB} MB (${Math.round(progress)}%)`, progress);
-                if (progressText) {
-                    progressText.textContent = `Загружено: ${loadedMB} MB / ${totalMB} MB`;
-                }
+            if (xhr.lengthComputable && xhr.total > 0) {
+                const totalMB = (xhr.total / 1024 / 1024).toFixed(1);
+                const percent = (xhr.loaded / xhr.total) * 100;
+                const progress = 10 + percent * 0.8; // от 10% до 90%
+                updateStatus(`Загружается: ${loadedMB} MB / ${totalMB} MB (${Math.round(progress)}%)`, progress);
             } else {
-                updateStatus('Загрузка...', 10);
-                if (progressText) {
-                    progressText.textContent = '';
-                }
+                const fakeProgress = Math.min(10 + xhr.loaded * 0.00005, 90); // если размер неизвестен
+                updateStatus(`Загрузка... (${loadedMB} MB)`, fakeProgress);
             }
         },
         (error) => {
