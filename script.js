@@ -208,8 +208,8 @@ function setupCameraAndInfo(modelPath, sceneObject) {
     const distance = size * 1.2;
 
     const cameraPosition = {
-        'models/105_Baked.glb': { hor: 15, vert: 30 },
-        'models/108_Baked.glb': { hor: 40, vert: 30 }
+        'models/Studio_Baked.glb': { hor: 15, vert: 30 },
+        'models/Bedroom_Baked.glb': { hor: 40, vert: 30 }
     };
 
     const CameraPos = cameraPosition[modelPath] || { hor: 0, vert: 0 };
@@ -218,8 +218,8 @@ function setupCameraAndInfo(modelPath, sceneObject) {
     controls.update();
 
     const cameraLimits = {
-        'models/105_Baked.glb': { min: 5, max: 8 },
-        'models/108_Baked.glb': { min: 7, max: 11 }
+        'models/Studio_Baked.glb': { min: 5, max: 8 },
+        'models/Bedroom_Baked.glb': { min: 7, max: 11 }
     };
 
     const limits = cameraLimits[modelPath] || { min: 1, max: 20 };
@@ -238,14 +238,14 @@ function setupCameraAndInfo(modelPath, sceneObject) {
 
     // Инфо
     const manualInfoHTML = {
-        'models/105_Baked.glb': 
+        'models/Studio_Baked.glb': 
             `<div class="detail-item">
                 <strong>Optimized for AR</strong><br>
                 Polys: 4.9m → 378k<br>
                 Size: 1.42gb(Max+Textures) → 28mb<br>
                 Used 1k textures
             </div>`,
-        'models/108_Baked.glb': 
+        'models/Bedroom_Baked.glb': 
             `<div class="detail-item">
                 <strong>Optimized for AR</strong><br>
                 Polys: 14.2m → 826k<br>
